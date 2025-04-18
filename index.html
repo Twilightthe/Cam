@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Camera Access</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    video {
+      width: 80%;
+      max-width: 600px;
+      border: 2px solid #333;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Camera Viewer</h1>
+  <video id="camera" autoplay playsinline></video>
+
+  <script>
+    async function requestCameraAccess() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.getElementById('camera');
+        video.srcObject = stream;
+      } catch (error) {
+        alert('Camera access was denied or not available.');
+        console.error('Camera error:', error);
+      }
+    }
+
+    window.onload = requestCameraAccess;
+  </script>
+</body>
+</html>
